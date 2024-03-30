@@ -24,19 +24,19 @@ git clone https://github.com/cscoderr/moniepoint_assessment
 cd moniepoint_assessment
 ```
 
-3. Add Google Map Api Key
+3. Add Google Map API Key
 - iOS 
 ```AppDelegate.swift```
 - Android 
 ```AndroidManifest.xml```
 
-3. Install dependencies
+4. Install dependencies
 
 ```sh
 $ flutter pub get
 ```
 
-4. Run the applicaton on any connected devices
+5. Run the applicaton on any connected devices
 
 ```sh
 $ flutter run
