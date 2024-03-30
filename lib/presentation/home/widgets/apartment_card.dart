@@ -7,42 +7,49 @@ class ApartmentCard extends StatelessWidget {
     super.key,
     required this.address,
     required this.imageProvider,
+    this.isSub = false,
     this.onTap,
+    required this.sizeAnimation,
+    required this.fadeAnimation,
   });
 
   final ImageProvider imageProvider;
   final String address;
   final VoidCallback? onTap;
+  final bool isSub;
+  final Animation<double> sizeAnimation;
+  final Animation<double> fadeAnimation;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              height: 250,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(30),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            height: 250,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
               ),
+              borderRadius:
+                  isSub ? BorderRadius.circular(20) : BorderRadius.circular(30),
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            left: 20,
-            child: _AddressTile(
-              address: address,
-              onTap: onTap,
-            ),
-          )
-        ],
-      ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: isSub ? 5 : 20,
+          left: isSub ? 5 : 20,
+          child: _AddressTile(
+            address: address,
+            isSub: isSub,
+            onTap: onTap,
+            sizeAnimation: sizeAnimation,
+            fadeAnimation: fadeAnimation,
+          ),
+        )
+      ],
     );
   }
 }
@@ -52,17 +59,29 @@ class _AddressTile extends StatelessWidget {
     super.key,
     required this.address,
     this.onTap,
+    required this.isSub,
+    required this.sizeAnimation,
+    required this.fadeAnimation,
   });
 
   final String address;
+  final bool isSub;
   final VoidCallback? onTap;
+  final Animation<double> sizeAnimation;
+  final Animation<double> fadeAnimation;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
-      child: ColoredBox(
-        color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+    return FractionallySizedBox(
+      widthFactor: sizeAnimation.value,
+      alignment: Alignment.centerLeft,
+      child: Container(
+        height: isSub ? 50 : 70,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(isSub ? 30 : 50),
+        ),
+        clipBehavior: Clip.antiAlias,
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
           child: Padding(
@@ -70,24 +89,30 @@ class _AddressTile extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Align(
-                    child: Text(
-                      address,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
+                  child: FadeTransition(
+                    opacity: fadeAnimation,
+                    child: Center(
+                      child: Text(
+                        address,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
                     ),
                   ),
                 ),
                 InkResponse(
                   onTap: onTap,
-                  child: Container(
-                    padding: const EdgeInsets.all(15),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
+                  child: FadeTransition(
+                    opacity: fadeAnimation,
+                    child: Container(
+                      padding: EdgeInsets.all(isSub ? 10 : 20),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: const Icon(Icons.keyboard_arrow_right),
                     ),
-                    child: const Icon(Icons.keyboard_arrow_right),
                   ),
                 ),
               ],

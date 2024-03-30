@@ -1,3 +1,3 @@
-# moniepoint_test
+# Moniepoint Assessment
 
 A new Flutter project.

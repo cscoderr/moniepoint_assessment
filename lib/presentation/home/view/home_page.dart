@@ -1,67 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:moniepoint_test/gen/assets.gen.dart';
+import 'package:moniepoint_test/presentation/bottom_bar/view/bottom_bar_page.dart';
 import 'package:moniepoint_test/presentation/home/home.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+    required this.appBarAnimationController,
+    required this.headerAnimationController,
+    required this.statsAnimationController,
+    required this.bottomBarPaneAnimationController,
+  });
+
+  final AnimationController appBarAnimationController;
+  final AnimationController headerAnimationController;
+  final AnimationController statsAnimationController;
+  final AnimationController bottomBarPaneAnimationController;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController _appBarAnimationController;
-  late AnimationController _headerAnimationController;
-  late AnimationController _statsAnimationController;
-
-  @override
-  void initState() {
-    _appBarAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..forward();
-
-    _appBarAnimationController
-        .addStatusListener(_appBarAnimationStatusListener);
-
-    _headerAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-
-    _headerAnimationController
-        .addStatusListener(_headerAnimationStatusListener);
-
-    _statsAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-
-    super.initState();
-  }
-
-  void _appBarAnimationStatusListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed ||
-        status == AnimationStatus.dismissed) {
-      _headerAnimationController.forward();
-    }
-  }
-
-  void _headerAnimationStatusListener(AnimationStatus status) {
-    if (status == AnimationStatus.completed ||
-        status == AnimationStatus.dismissed) {
-      _statsAnimationController.forward();
-    }
-  }
-
-  @override
-  void dispose() {
-    _headerAnimationController.dispose();
-    _appBarAnimationController.dispose();
-    _statsAnimationController.dispose();
-    super.dispose();
-  }
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,62 +54,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       HomeCustomAppBar(
-                          animationController: _appBarAnimationController),
+                          animationController:
+                              widget.appBarAnimationController),
                       const SizedBox(height: 20),
                       HomeHeader(
-                        animationController: _headerAnimationController,
+                        animationController: widget.headerAnimationController,
                       ),
                       const SizedBox(height: 40),
                       StatsCards(
-                        animationController: _statsAnimationController,
+                        animationController: widget.statsAnimationController,
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30)),
-                    ),
-                    child: Column(
-                      children: [
-                        ApartmentCard(
-                          imageProvider: Assets.images.house1.provider(),
-                          address: 'Gladkova St., 25',
-                        ),
-                        const SizedBox(height: 20),
-                        if (1 == 2)
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ApartmentCard(
-                                  imageProvider:
-                                      Assets.images.house1.provider(),
-                                  address: 'Gladkova St., 25',
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Expanded(
-                                child: ApartmentCard(
-                                  imageProvider:
-                                      Assets.images.house1.provider(),
-                                  address: 'Gladkova St., 25',
-                                ),
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
                   ),
                 ),
               ],
             ),
           ),
+          ValueListenableBuilder(
+              valueListenable: showBottomBarPane,
+              builder: (context, value, child) {
+                return AnimatedPositioned(
+                  duration: const Duration(milliseconds: 500),
+                  bottom: value ? 0 : -MediaQuery.sizeOf(context).height,
+                  left: 0,
+                  right: 0,
+                  height: Platform.isAndroid
+                      ? MediaQuery.sizeOf(context).height * 0.72
+                      : MediaQuery.sizeOf(context).height * 0.7,
+                  child: HomeBottomBarPane(
+                      animationController:
+                          widget.bottomBarPaneAnimationController),
+                );
+              })
         ],
       ),
     );

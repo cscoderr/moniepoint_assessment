@@ -52,35 +52,36 @@ class _StatsCardsState extends State<StatsCards> {
                   radius: 80,
                   backgroundColor: const Color(0xFFF98C12),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       children: [
                         Text(
                           'BUY',
-                          style: textTheme.bodyLarge,
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                         Expanded(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  _formatCount(
-                                      _buyOfferTextAnimation.value.toInt()),
-                                  style: textTheme.bodyLarge?.copyWith(
-                                    color: Colors.white,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w700,
-                                    height: -1,
-                                  ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                _formatCount(
+                                    _buyOfferTextAnimation.value.toInt()),
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                Text(
-                                  'offers',
-                                  style: textTheme.bodyLarge,
+                              ),
+                              Text(
+                                'offers',
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: Colors.white,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -94,6 +95,7 @@ class _StatsCardsState extends State<StatsCards> {
                 scale: _animationController,
                 child: Container(
                   height: 160,
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -107,28 +109,26 @@ class _StatsCardsState extends State<StatsCards> {
                         ),
                       ),
                       Expanded(
-                        child: Align(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                _formatCount(
-                                    _rentOfferTextAnimation.value.toInt()),
-                                style: textTheme.bodyLarge?.copyWith(
-                                  color: const Color(0xFFA5957E),
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w700,
-                                  height: -1,
-                                ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _formatCount(
+                                  _rentOfferTextAnimation.value.toInt()),
+                              style: textTheme.bodyLarge?.copyWith(
+                                color: const Color(0xFFA5957E),
+                                fontSize: 35,
+                                fontWeight: FontWeight.w700,
                               ),
-                              Text(
-                                'offers',
-                                style: textTheme.bodyLarge?.copyWith(
-                                  color: const Color(0xFFA5957E),
-                                ),
+                            ),
+                            Text(
+                              'offers',
+                              style: textTheme.bodyLarge?.copyWith(
+                                color: const Color(0xFFA5957E),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

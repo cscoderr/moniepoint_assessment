@@ -69,6 +69,7 @@ class _HomeCustomAppBarState extends State<HomeCustomAppBar> {
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: const Color(0xFFA5957E),
                             fontWeight: FontWeight.w500,
+                            letterSpacing: -0.5,
                           ),
                     ),
                   ],

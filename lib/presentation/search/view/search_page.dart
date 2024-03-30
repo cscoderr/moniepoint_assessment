@@ -25,7 +25,6 @@ class _SearchPageState extends State<SearchPage>
     with SingleTickerProviderStateMixin {
   double doubleInRange(math.Random source, num start, num end) =>
       source.nextDouble() * (end - start) + start;
-  List<Marker> markers = [];
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   String? mapStyle;
@@ -71,13 +70,14 @@ class _SearchPageState extends State<SearchPage>
     });
 
     _scaleAnimation = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.ease),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
 
     _fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
-          parent: _animationController,
-          curve: const Interval(0.5, 1.0, curve: Curves.easeIn)),
+        parent: _animationController,
+        curve: const Interval(0.5, 1.0, curve: Curves.ease),
+      ),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -88,34 +88,12 @@ class _SearchPageState extends State<SearchPage>
         setState(() {});
       });
     });
-
-    Future.microtask(() {
-      final r = math.Random();
-      for (var x = 0; x < 10; x++) {
-        markers.add(
-          Marker(
-            position:
-                LatLng(doubleInRange(r, 37, 55), doubleInRange(r, -9, 30)),
-            markerId: MarkerId('$x'),
-          ),
-        );
-      }
-      setState(() {});
-    });
   }
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(6.5244, 3.3792),
     zoom: 16,
   );
-
-  // @override
-  // void didUpdateWidget(covariant SearchPage oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   _animationController
-  //     ..reset()
-  //     ..forward();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +156,7 @@ class _SearchPageState extends State<SearchPage>
         child: AnimatedContainer(
           width: currentMenuIndex == 1 ? 130 : 50,
           height: currentMenuIndex == 1 ? 60 : 50,
-          duration: const Duration(milliseconds: 700),
+          duration: const Duration(milliseconds: 300),
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
@@ -188,21 +166,24 @@ class _SearchPageState extends State<SearchPage>
               bottomRight: Radius.circular(15),
             ),
           ),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: currentMenuIndex == 1
-                ? Text(
-                    prices[index],
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  )
-                : Assets.icons.buliding.svg(
-                    colorFilter:
-                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                  ),
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 700),
+              child: currentMenuIndex == 1
+                  ? Text(
+                      prices[index],
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    )
+                  : Assets.icons.buliding.svg(
+                      colorFilter:
+                          const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    ),
+            ),
           ),
         ),
       ),
