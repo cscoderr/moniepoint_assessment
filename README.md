@@ -3,7 +3,7 @@
 A Flutter Real Estate Animation and UI design
 
 
-## Screenshot
+## Screenshots
 
 <h4 align="center">
 <img src="screenshots/img1.png" width="30%" vspace="10" hspace="10"/>
