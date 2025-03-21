@@ -9,22 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_map: ^6.1.0
-  flutter_map_cancellable_tile_provider: ^2.0.0
-  flutter_svg: ^2.0.10+1
-  google_maps_flutter: ^2.6.0
+  flutter_svg: ^2.0.17
+  google_maps_flutter: ^2.8.0
   iconsax: ^0.0.8
-  latlong2: ^0.9.1
-
-dependency_overrides:
-    flutter_map:
-        git:
-            url: https://github.com/fleaflet/flutter_map.git
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^5.0.0
 
 
 flutter_gen:

@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/cscoder/Developer/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/cscoder/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/cscoder/Documents/FlutterProjects/moniepoint_assessment/android/app/.cxx/RelWithDebInfo/2tl17414/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/cscoder/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/cscoder/Documents/FlutterProjects/moniepoint_assessment/android/app/.cxx/RelWithDebInfo/2tl17414/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

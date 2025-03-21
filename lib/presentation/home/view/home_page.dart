@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
         children: [
           Positioned.fill(
             child: Container(
-              // margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -43,49 +42,47 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SafeArea(
-            bottom: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HomeCustomAppBar(
-                          animationController:
-                              widget.appBarAnimationController),
-                      const SizedBox(height: 20),
-                      HomeHeader(
-                        animationController: widget.headerAnimationController,
-                      ),
-                      const SizedBox(height: 40),
-                      StatsCards(
-                        animationController: widget.statsAnimationController,
-                      ),
-                    ],
-                  ),
+          Positioned.fill(
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HomeCustomAppBar(
+                        animationController: widget.appBarAnimationController),
+                    const SizedBox(height: 20),
+                    HomeHeader(
+                      animationController: widget.headerAnimationController,
+                    ),
+                    const SizedBox(height: 40),
+                    StatsCards(
+                      animationController: widget.statsAnimationController,
+                    ),
+                    const SizedBox(height: 40),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           ValueListenableBuilder(
-              valueListenable: showBottomBarPane,
-              builder: (context, value, child) {
-                return AnimatedPositioned(
-                  duration: const Duration(milliseconds: 500),
-                  bottom: value ? 0 : -MediaQuery.sizeOf(context).height,
-                  left: 0,
-                  right: 0,
-                  height: Platform.isAndroid
-                      ? MediaQuery.sizeOf(context).height * 0.72
-                      : MediaQuery.sizeOf(context).height * 0.7,
-                  child: HomeBottomBarPane(
-                      animationController:
-                          widget.bottomBarPaneAnimationController),
-                );
-              })
+            valueListenable: showBottomBarPane,
+            builder: (context, value, child) {
+              return AnimatedPositioned(
+                duration: const Duration(milliseconds: 500),
+                bottom: value ? 0 : -MediaQuery.sizeOf(context).height,
+                left: 0,
+                right: 0,
+                height: Platform.isAndroid
+                    ? MediaQuery.sizeOf(context).height * 0.47
+                    : MediaQuery.sizeOf(context).height * 0.45,
+                child: HomeBottomBarPane(
+                    animationController:
+                        widget.bottomBarPaneAnimationController),
+              );
+            },
+          ),
         ],
       ),
     );

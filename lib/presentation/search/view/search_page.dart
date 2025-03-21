@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage>
   late Animation<double> _fadeAnimation;
   bool showMarker = false;
   bool showMenu = false;
-  int currentMenuIndex = 1;
+  int currentMenuIndex = 0;
   final searchMenuItems = [
     const SearchMenuItem(icon: Iconsax.shield_tick, text: 'Cosy areas'),
     const SearchMenuItem(icon: Iconsax.empty_wallet, text: 'Price'),

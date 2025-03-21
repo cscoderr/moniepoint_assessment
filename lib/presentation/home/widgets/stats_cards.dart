@@ -43,16 +43,20 @@ class _StatsCardsState extends State<StatsCards> {
       animation:
           Listenable.merge([_buyOfferTextAnimation, _rentOfferTextAnimation]),
       builder: (context, child) {
-        return Row(
-          children: [
-            Expanded(
-              child: ScaleTransition(
-                scale: _animationController,
-                child: CircleAvatar(
-                  radius: 80,
-                  backgroundColor: const Color(0xFFF98C12),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
+        return SizedBox(
+          height: 190,
+          child: Row(
+            children: [
+              Expanded(
+                child: ScaleTransition(
+                  scale: _animationController,
+                  child: Container(
+                    constraints: BoxConstraints(maxWidth: 80),
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF98C12),
+                      borderRadius: BorderRadius.circular(160),
+                    ),
                     child: Column(
                       children: [
                         Text(
@@ -89,54 +93,54 @@ class _StatsCardsState extends State<StatsCards> {
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: ScaleTransition(
-                scale: _animationController,
-                child: Container(
-                  height: 160,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'RENT',
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: const Color(0xFFA5957E),
+              SizedBox(width: 10),
+              Expanded(
+                child: ScaleTransition(
+                  scale: _animationController,
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'RENT',
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: const Color(0xFFA5957E),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              _formatCount(
-                                  _rentOfferTextAnimation.value.toInt()),
-                              style: textTheme.bodyLarge?.copyWith(
-                                color: const Color(0xFFA5957E),
-                                fontSize: 35,
-                                fontWeight: FontWeight.w700,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                _formatCount(
+                                    _rentOfferTextAnimation.value.toInt()),
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: const Color(0xFFA5957E),
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'offers',
-                              style: textTheme.bodyLarge?.copyWith(
-                                color: const Color(0xFFA5957E),
+                              Text(
+                                'offers',
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: const Color(0xFFA5957E),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

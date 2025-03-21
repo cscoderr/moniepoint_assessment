@@ -1,0 +1,2 @@
+/Users/cscoder/Documents/FlutterProjects/moniepoint_assessment/android/app/.cxx/RelWithDebInfo/2tl17414/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/cscoder/Documents/FlutterProjects/moniepoint_assessment/android/app/.cxx/RelWithDebInfo/2tl17414/arm64-v8a/CMakeFiles/rebuild_cache.dir

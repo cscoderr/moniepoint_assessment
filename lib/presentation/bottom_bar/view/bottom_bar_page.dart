@@ -85,7 +85,7 @@ class _BottomBarPageState extends State<BottomBarPage>
     if (status == AnimationStatus.completed ||
         status == AnimationStatus.dismissed) {
       showBottomBarPane.value = true;
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 200), () {
         _homeBottomBarPaneAnimationController.forward();
       });
     }

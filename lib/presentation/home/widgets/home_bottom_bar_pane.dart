@@ -24,7 +24,7 @@ class _HomeBottomBarPaneState extends State<HomeBottomBarPane> {
   void initState() {
     super.initState();
 
-    _sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _sizeAnimation = Tween<double>(begin: 0, end: 1.0).animate(
       CurvedAnimation(
         parent: widget.animationController,
         curve: Curves.fastOutSlowIn,
@@ -45,7 +45,7 @@ class _HomeBottomBarPaneState extends State<HomeBottomBarPane> {
       ),
     );
 
-    _subSizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _subSizeAnimation = Tween<double>(begin: 0, end: 1.0).animate(
       CurvedAnimation(
         parent: widget.animationController,
         curve: const Interval(
@@ -63,13 +63,14 @@ class _HomeBottomBarPaneState extends State<HomeBottomBarPane> {
         animation: Listenable.merge([_sizeAnimation, _subSizeAnimation]),
         builder: (context, child) {
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             ),
             clipBehavior: Clip.antiAlias,
             child: SingleChildScrollView(
+              padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight + 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

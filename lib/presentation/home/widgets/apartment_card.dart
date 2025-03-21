@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -25,8 +26,7 @@ class ApartmentCard extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: Container(
-            height: 250,
+          child: DecoratedBox(
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: imageProvider,
@@ -73,12 +73,12 @@ class _AddressTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      widthFactor: sizeAnimation.value,
+      widthFactor: math.max(sizeAnimation.value, 0.35),
       alignment: Alignment.centerLeft,
       child: Container(
         height: isSub ? 50 : 70,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+          color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(isSub ? 30 : 50),
         ),
         clipBehavior: Clip.antiAlias,
@@ -88,12 +88,14 @@ class _AddressTile extends StatelessWidget {
             padding: const EdgeInsets.all(3),
             child: Row(
               children: [
+                const SizedBox(width: 5),
                 Expanded(
                   child: FadeTransition(
                     opacity: fadeAnimation,
                     child: Center(
                       child: Text(
                         address,
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -101,6 +103,7 @@ class _AddressTile extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: 5),
                 InkResponse(
                   onTap: onTap,
                   child: FadeTransition(
